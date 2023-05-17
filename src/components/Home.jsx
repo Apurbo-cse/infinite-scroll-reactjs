@@ -21,20 +21,29 @@ const Home = () => {
   };
 
   const handleInfiniteScroll = async () => {
-      try{
+    console.log("scrollHeight", +document.documentElement.scrollHeight);
+    console.log("innerHeight", +window.innerHeight);
+    console.log("scrollTop", +document.documentElement.scrollTop);
 
-      } catch (error) {
+    try {
+      if (
+        window.innerHeight + document.documentElement.scrollTop + 1 >=
+        document.documentElement.scrollHeight
+      ) {
         
       }
-  }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     getCardData();
   }, []);
 
-  useEffect(() =>{
-      window.addEventListener("scroll", handleInfiniteScroll)
-  },[])
+  useEffect(() => {
+    window.addEventListener("scroll", handleInfiniteScroll);
+  }, []);
 
   return (
     <div className="container my-3">
