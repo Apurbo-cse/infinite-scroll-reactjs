@@ -4,6 +4,7 @@ import Card from "./common/Card";
 
 const Home = () => {
   const [data, setData] = useState([]);
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
   const getCardData = async () => {
@@ -30,7 +31,7 @@ const Home = () => {
         window.innerHeight + document.documentElement.scrollTop + 1 >=
         document.documentElement.scrollHeight
       ) {
-        
+        setPage((prev) => prev +1 )
       }
     } catch (error) {
       console.log(error);
