@@ -1,19 +1,35 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import Card from "./common/Card";
 
 const Home = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const getCardData = async () => {
+    try {
+      const response = await axios.get(
+        "https://jsonplaceholder.typicode.com/posts?_limit=9&_page=1"
+      );
+      const data = response.data;
+      setData(data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching card data:", error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getCardData();
+  }, []);
+
   return (
     <div className="container my-3">
       <div className="row ">
-        <div className="col-6 col-md-3 mb-2">
-          <div className="card p-2">
-            <small>1</small>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui nihil
-              quam tempora, error iusto fugiat.
-            </p>
-            <h5>Lorem ipsum dolor sit amet.</h5>
-          </div>
-        </div>
+        {data.map((item, id) => {
+          return <Card key={id} data={item} />;
+        })}
       </div>
     </div>
   );
