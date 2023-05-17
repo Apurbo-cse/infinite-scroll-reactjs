@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Loading from "./common/Loading";
 import Card from "./common/Card";
 
@@ -8,12 +9,16 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
 
   const getCardData = async () => {
-    const res = await fetch(
-      `https://jsonplaceholder.typicode.com/posts?_limit=20&_page=${page}`
-    );
-    const data = await res.json();
-    setCard((prev) => [...prev, ...data]);
-    setLoading(false);
+    try {
+      const res = await axios.get(
+        `https://jsonplaceholder.typicode.com/posts?_limit=20&_page=${page}`
+      );
+      const data = res.data;
+      setCard((prev) => [...prev, ...data]);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -49,11 +54,12 @@ const Home = () => {
   return (
     <>
       <div className="container my-3">
+        <h5 className="fw-bold mb-2">List Of Cards</h5>
         <div className="row ">
           {uniqueCards.map((item) => (
             <Card key={item.id} data={item} />
           ))}
-          {loading && <Loading/>}
+          {loading && <Loading />}
         </div>
       </div>
     </>
