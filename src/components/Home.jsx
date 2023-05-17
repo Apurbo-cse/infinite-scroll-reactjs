@@ -20,9 +20,21 @@ const Home = () => {
     }
   };
 
+  const handleInfiniteScroll = async () => {
+      try{
+
+      } catch (error) {
+        
+      }
+  }
+
   useEffect(() => {
     getCardData();
   }, []);
+
+  useEffect(() =>{
+      window.addEventListener("scroll", handleInfiniteScroll)
+  },[])
 
   return (
     <div className="container my-3">
