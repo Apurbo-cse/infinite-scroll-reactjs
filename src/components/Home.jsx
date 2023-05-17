@@ -10,7 +10,7 @@ const Home = () => {
   const getCardData = async () => {
     try {
       const response = await axios.get(
-        "https://jsonplaceholder.typicode.com/posts?_limit=9&_page=1"
+        `https://jsonplaceholder.typicode.com/posts?_limit=9&_page=${page}`
       );
       const data = response.data;
       setData(data);
@@ -40,7 +40,7 @@ const Home = () => {
 
   useEffect(() => {
     getCardData();
-  }, []);
+  }, [page]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleInfiniteScroll);
